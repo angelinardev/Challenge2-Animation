@@ -7,32 +7,89 @@ public class SteeringBehaviour : MonoBehaviour
     public GameObject target; // Assign this in the inspector
 
     private Vector3 _movementVector = new Vector3(1, 0, 1);
-    private float _maxVelocity = 10.0f;
+    public float _maxVelocity = 10.0f;
     private float _desiredVelocity;
 
-    private float slowingRadius = 2.0f;
+    public float slowingRadius = 10.0f;
 
     private Vector3 direction = new Vector3(1, 0, 1);
     private bool hitObj = false;
 
     private Vector3 initialDirection;
 
+    private bool arrive, avoid, flee = false;
+    private bool pressed1, pressed2, pressed3 = false;
 
     private void Start()
     {
         initialDirection = (target.transform.position - transform.position);
     }
 
-    //private Vector3 steering;
+    private void Controls()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (!pressed1)
+            {
+                arrive = true;
+                print("activated arrival behaviour\n");
+            }
+            else
+            {
+                arrive = false;
+                print("deactivated arrival behaviour\n");
+            }
+            pressed1 = !pressed1;
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (!pressed2)
+            {
+                avoid = true;
+                print("activated avoid behaviour\n");
+            }
+            else
+            {
+                avoid = false;
+                print("deactivated avoid behaviour\n");
+            }
+            pressed2 = !pressed2;
+        }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            if (!pressed3)
+            {
+                flee = true;
+                print("activated flee behaviour\n");
+            }
+            else
+            {
+                flee = false;
+                print("deactivated flee behaviour\n");
+            }
+            pressed3 = !pressed3;
+        }
+
+    }
 
     // Update is called once per frame
     private void Update()
     {
-        // TODO: call steering behaviour function here
-
-        //ArrivalBehaviour();
-        AvoidCollisionBehaviour();
-        //FleeBehaviour();
+        Controls();
+        
+        //change behaviour depending on key press
+        if (arrive)
+        {
+            ArrivalBehaviour();
+        }
+        if (avoid)
+        {
+            AvoidCollisionBehaviour();
+        }
+        if (flee)
+        {
+            FleeBehaviour();
+        }
 
        _movementVector = _movementVector * _desiredVelocity * Time.deltaTime;
         
