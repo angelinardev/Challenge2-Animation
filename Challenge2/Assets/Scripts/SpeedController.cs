@@ -18,6 +18,8 @@ public class SpeedController : MonoBehaviour
     public float _segmentTravelTime = 1.0f;
     private int _segmentIndex = 0;
 
+    public float speed = 1.0f;
+
     // TODO: Create animation curve and add keys to use as motion graph
     private AnimationCurve _curve;
 
@@ -90,7 +92,7 @@ public class SpeedController : MonoBehaviour
                             _segmentIndex = 0;
                     }
 
-                    float t = _segmentTimer / _segmentTravelTime;
+                    float t = _segmentTimer / _segmentTravelTime ;
 
                     if (nodes.Count < 4)
                     {
