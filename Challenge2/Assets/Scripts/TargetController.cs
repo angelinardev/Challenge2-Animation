@@ -29,5 +29,13 @@ public class TargetController : MonoBehaviour
         {
             transform.position += new Vector3(-0.01f, 0.0f, 0.0f);
         }
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.position += new Vector3(0.0f, 0.0f, 0.01f);
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.position += new Vector3(0.0f, 0.0f, -0.01f);
+        }
     }
 }
